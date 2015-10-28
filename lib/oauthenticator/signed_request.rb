@@ -177,41 +177,6 @@ module OAuthenticator
 
         signable_request = SignableRequest.new(@attributes.merge(secrets).merge('authorization' => oauth_header_params))
 
-        # body hash
-
-        # present?
-        if body_hash?
-          # allowed?
-          if !signable_request.form_encoded?
-            # applicable?
-            if SignableRequest::BODY_HASH_METHODS.key?(signature_method)
-              # correct?
-              if body_hash == signable_request.body_hash
-                # all good
-              else
-                errors['Authorization oauth_body_hash'] << "Authorization oauth_body_hash is invalid"
-              end
-            else
-              # received a body hash with plaintext. weird situation - we will ignore it; signature will not 
-              # be verified but it will be a part of the signature. 
-            end
-          else
-            errors['Authorization oauth_body_hash'] << "Authorization oauth_body_hash must not be included with form-encoded requests"
-          end
-        else
-          # allowed?
-          if !signable_request.form_encoded?
-            # required?
-            if body_hash_required?
-              errors['Authorization oauth_body_hash'] << "Authorization oauth_body_hash is required (on non-form-encoded requests)"
-            else
-              # okay - not supported by client, but allowed
-            end
-          else
-            # all good
-          end
-        end
-
         throw(:errors, errors) if errors.any?
 
         # proceed to check signature
