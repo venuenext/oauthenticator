@@ -1,6 +1,7 @@
 # OAuthenticator
 
 [![Build Status](https://travis-ci.org/notEthan/oauthenticator.svg?branch=master)](https://travis-ci.org/notEthan/oauthenticator)
+[![Coverage Status](https://coveralls.io/repos/github/venuenext/oauthenticator/badge.svg?branch=master)](https://coveralls.io/github/venuenext/oauthenticator?branch=master)
 
 OAuthenticator signs outgoing requests with OAuth 1.0. 
 
